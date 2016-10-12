@@ -1,4 +1,7 @@
 # VVS
+
+[![Build Status](https://travis-ci.org/danielFerreiro/VVS2016.svg?branch=master)](https://travis-ci.org/danielFerreiro/VVS2016)
+
 Pruebas validación travis
 
 Responsable do producto software

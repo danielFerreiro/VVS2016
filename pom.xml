@@ -109,16 +109,6 @@
 	</profiles>
 
 	<!-- ========================================================== -->
-	<!-- Local repositories -->
-	<repositories>
-		<repository>
-			<id>project.local</id>
-			<name>project</name>
-			<url>file:///home/daniel/Escritorio/Universidad/Cuarto/VVS/prueba/repo</url>
-		</repository>
-	</repositories>
-
-	<!-- ========================================================== -->
 
 	<!-- Dependencies -->
 	<dependencies>
@@ -228,7 +218,10 @@
 			<groupId>com.example</groupId>
 			<artifactId>mylib</artifactId>
 			<version>2.3.0</version>
+			<scope>system</scope>
+			<systemPath>${project.basedir}/lib/mylib-2.3.0.jar</systemPath>
 		</dependency> 
+		
 	</dependencies>
 
 	<build>

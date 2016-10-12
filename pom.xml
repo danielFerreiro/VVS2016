@@ -109,6 +109,16 @@
 	</profiles>
 
 	<!-- ========================================================== -->
+	<!-- Local repositories -->
+	<repositories>
+		<repository>
+			<id>project.local</id>
+			<name>project</name>
+			<url>file:///home/daniel/Escritorio/Universidad/Cuarto/VVS/prueba/repo</url>
+		</repository>
+	</repositories>
+
+	<!-- ========================================================== -->
 
 	<!-- Dependencies -->
 	<dependencies>
@@ -215,10 +225,10 @@
 		</dependency>
 		<!-- POJO-Examples Model Util -->
 		<dependency>
-			<groupId>es.udc.pojo</groupId>
-			<artifactId>pojo-modelutil</artifactId>
-			<version>${pojo-modelutil.version}</version>
-		</dependency>
+			<groupId>com.example</groupId>
+			<artifactId>mylib</artifactId>
+			<version>2.3.0</version>
+		</dependency> 
 	</dependencies>
 
 	<build>

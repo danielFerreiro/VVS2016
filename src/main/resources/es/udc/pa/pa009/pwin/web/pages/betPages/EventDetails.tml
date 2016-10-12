@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+	xmlns:p="tapestry:parameter" t:type="Layout" t:title="title">
+	
+	<table class="table table-striped table-hover">	
+		<tbody>
+	        <tr>
+	            <th>${message:eventName-label}</th>
+	            <td>${evento.nombreEvento}</td>
+	        </tr>		
+	        <tr>
+	            <th>${message:categoria-label}</th>
+	            <td>${evento.categoria.nombreCategoria}</td>
+	        </tr>		
+	        <tr>
+	            <th>${message:fechaevento-label}</th>
+	            <td>
+	            	<t:output t:format="dateFormat" t:value="evento.fecha.time">
+	            	</t:output>
+	            </td>
+	        </tr> 	
+	        <tr t:type="Loop" t:source="evento.tipos" t:value="tipoApuesta">
+	        	
+	        	<th>
+	        		${tipoApuesta.pregunta}
+	        	</th>
+	        	<td></td>
+	        	<tr t:type="Loop" t:source="tipoApuesta.opciones" t:value="opcion">
+	        		<th></th>
+	        		<td>
+	        			<a href="#" t:type="PageLink"
+			        	t:page="betPages/optionDetails"
+			        	t:context="opcion.idOpcion">
+			        	${opcion.nombreOpcion}
+			        	</a>
+	        		</td>
+	        	</tr>
+	        </tr>
+        </tbody>	
+	</table>
+	
+	<!-- 
+	<tr t:type="Loop" t:source="evento.tipos" t:value="tipoApuesta">
+	        	
+	        	<th>
+	        		${tipoApuesta.pregunta}
+	        	</th>
+	        	
+	        	<td t:type="Loop" t:source="tipoApuesta.opciones" t:value="opcion">
+	        	
+	        	<a href="#" t:type="PageLink"
+	        	t:page="betPages/optionDetails"
+	        	t:context="opcion.idOpcion">
+	        	${opcion.nombreOpcion}
+	        	</a>
+	        	
+	        	</td>
+	        </tr>
+	 -->
+	
+</html>

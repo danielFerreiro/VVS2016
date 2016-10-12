@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+	xmlns:p="tapestry:parameter" t:type="Layout" t:title="title">
+	
+	<table class="table table-striped table-hover">
+		<tbody>
+			<tr>
+				<th>${message:nombreEvento-label}</th>
+				<th>${message:tipoApuesta-label}</th>
+				<th>${message:nombreOpcion-label}</th>
+				<th>${message:cuota-label}</th>
+			</tr>
+			
+			<tr>
+				<td>${evento.nombreEvento}</td>
+				<td>${tipoApuesta.pregunta}</td>
+				<td>${opcion.nombreOpcion}</td>
+				<td>${opcion.cuota}</td>
+			</tr>
+			
+		
+		</tbody>
+	</table>
+	
+	<br/>
+	
+	<form t:type="Form" class="form-horizontal" t:id="betForm" role="form">
+	
+	<t:errors/>
+	
+	<div class="form-group">
+		<t:label for="cantidad" class="col-md-offset-3 col-md-2" />
+		<div class="col-md-3">
+			<input t:id="cantidad" t:type="TextField"
+				t:validate="required, min=0" />
+		</div>
+	</div>
+	
+	
+	<div class="form-group">
+		<div class="col-md-offset-5 col-md-3">
+			<input t:type="submit" t:value="${message:submit-label}" class="btn btn-primary" />
+		</div>
+	</div>
+	
+	</form>
+	
+	
+</html>

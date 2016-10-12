@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+	t:type="Layout" t:title="title">
+
+<form t:type="Form" class="form-horizontal" t:id="addOptionsForm">
+
+	<t:errors />
+
+	<div class="form-group">
+		<t:label for="cuota" class="col-md-offset-3 col-md-2" />
+		<div class="col-md-3">
+			<input t:type="TextField" t:id="cuota" t:validate="required, min=0" />
+		</div>
+	</div>
+
+	<div class="form-group">
+		<t:label for="nombreOpcion" class="col-md-offset-3 col-md-2" />
+		<div class="col-md-3">
+			<input t:type="TextField" t:id="nombreOpcion" t:validate="required" />
+		</div>
+	</div>
+	
+	<div class="col-md-offset-4 col-md-2">
+		<input class="btsubmit btn btn-primary"  t:value="${message:annadirMas-label}"
+			t:type="submit" t:id="masOpciones"/>
+	</div>
+	
+	<div class="col-md-offset-2 col-md-2">
+		<input class="btsubmit btn btn-primary"  t:value="${message:submit-label}" 
+				t:type="submit" t:id="finalizar"/>
+	</div>
+	
+	
+	<br/>
+
+</form>
+</html>

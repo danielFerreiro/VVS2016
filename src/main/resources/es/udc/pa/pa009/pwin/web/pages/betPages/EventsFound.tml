@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+	xmlns:p="tapestry:parameter" t:type="Layout" t:title="title">
+	
+<t:grid source="eventoGridDataSource" row="evento" rowsPerPage="rowsPerPage" inPlace="true"
+		include="nombreEvento,fecha" add="nombreCategoria">
+
+	this.model.add("nombreEventoHeader",null).sortable(true);
+	<p:nombreEventoHeader>
+			${message:nombreEvento}		
+	</p:nombreEventoHeader>
+	
+	<p:fechaHeader>
+		${message:fechaEvento}
+	</p:fechaHeader>
+	
+	<p:nombreCategoriaHeader>
+		${message:nombreCategoria}
+	</p:nombreCategoriaHeader>
+
+	<p:nombreEventoCell>
+		<a href="#" t:type="PageLink" t:page="betPages/eventdetails" 
+			t:context="evento.idEvento">
+			${evento.nombreEvento}
+		</a>
+	</p:nombreEventoCell>
+
+	<p:fechaCell>
+		${fechaFormateada}
+	</p:fechaCell>
+
+
+	<p:nombreCategoriaCell>
+		${evento.categoria.nombreCategoria}
+	</p:nombreCategoriaCell>
+
+</t:grid>
+</html>

@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+	t:type="Layout" t:title="title">
+
+
+<t:zone t:id="betTypeZone" id="betTypeZone">
+	<form t:type="Form" zone="formZone" class="form-horizontal" t:id="addBetTypeForm">
+	
+		<t:errors />
+	
+		<div class="form-group">
+			<t:label for="idEvento" class="col-md-offset-3 col-md-2" />
+			<div class="col-md-3">
+				<input t:type="TextField" t:id="idEvento"
+					t:validate="required, min=0" />
+			</div>
+		</div>
+	
+		<div class="form-group">
+			<t:label for="pregunta" class="col-md-offset-3 col-md-2" />
+			<div class="col-md-3">
+				<input t:type="TextField" t:id="pregunta" t:validate="required" />
+			</div>
+		</div>
+	
+	
+		<div class="form-group">
+			<t:label for="multiples" class="col-md-offset-3 col-md-2" />
+			<div class="col-md-3">
+				<input t:type="Checkbox" t:id="multiples" />
+			</div>
+		</div>
+	
+		
+		<div class="col-md-offset-5 col-md-2">
+			<input class="btsubmit btn btn-primary"
+				t:value="${message:crear-label}" t:type="submit" />
+		</div>
+	
+	
+		<div class="form-group"></div>
+	</form>
+</t:zone>
+
+
+
+<t:zone t:id="formZone" id="formZone">
+	
+	<t:if negate="true" test="existeTipoApuesta">
+	
+			<form t:type="Form" zone="formZone" class="form-horizontal" t:id="addOptionsForm">
+			
+				<t:errors/>
+				
+				<div class="form-group"></div>
+				
+				<div class="form-group">
+					<t:label for="cuota" class="col-md-offset-3 col-md-2" />
+					<div class="col-md-3">
+						<input t:type="TextField" t:id="cuota" t:validate="required, min=0" />
+					</div>
+				</div>
+			
+				<div class="form-group">
+					<t:label for="nombreOpcion" class="col-md-offset-3 col-md-2" />
+					<div class="col-md-3">
+						<input t:type="TextField" t:id="nombreOpcion" t:validate="required" />
+					</div>
+				</div>
+				
+				
+				<div class="col-md-offset-3 col-md-2">
+					<input class="btsubmit btn btn-primary"
+						t:value="${message:submit-label}" t:type="submit" t:id="finalizar" />
+				</div>
+				
+				<t:if test="opciones">
+					<div class="col-md-offset-2 col-md-2">
+						<input class="btsubmit btn btn-primary" t:value="${message:end-label}"
+							t:type="submit" t:id="finalButton"
+							t:mode="${submitMode}" />
+					</div>
+				</t:if>
+					
+				
+				
+				<div class="form-group"></div>
+			</form>
+	
+			
+			<t:zone t:id="opcionesAnnadidas" id="opcionesAnnadidas">
+				
+				<t:if test="opciones">
+					<table class="table table-striped table-hover">
+					
+						<tr>
+							<th>
+								${message:nombreOpcion-label}
+							</th>
+							<th>
+								${message:cuotaOpcion-label}
+							</th>
+							<th></th>
+						</tr>
+						
+						
+						<tr t:type="Loop" t:source="opciones" t:value="opcion">
+							<td>${opcion.nombreOpcion}</td>
+							<td>${opcion.cuota}</td>
+							<td>
+								<t:ActionLink zone="opcionesAnnadidas" class="btn btn-primary" 
+								t:id="eliminarOpcion" t:context="opcion.nombreOpcion" >
+									${message:eliminarOpcion-label}</t:ActionLink>					
+							</td>													
+						</tr>
+						
+						
+					
+					</table>
+				</t:if>
+			</t:zone>
+
+	</t:if>
+</t:zone>
+
+
+
+
+
+</html>

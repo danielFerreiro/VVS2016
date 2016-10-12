@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+	xmlns:p="tapestry:parameter" t:type="Layout" t:title="title">
+	<t:grid source="apuestaGridDataSource" row="apuesta" rowsPerPage="rowsPerPage" inPlace="true"
+	include="fecha" add="nombreEvento,fechaEvento,tipoApuesta,
+							opcionElegida,opcionesGanadoras,estado,cantidadApostada,ganancia">
+	
+		<p:fechaHeader>
+			${message:fechaApuesta}
+		</p:fechaHeader>
+		
+		<p:nombreEventoHeader>
+			${message:nombreEvento}
+		</p:nombreEventoHeader>
+		
+		<p:fechaEventoHeader>
+			${message:fechaEvento}
+		</p:fechaEventoHeader>
+		
+		<p:tipoApuestaHeader>
+			${message:tipoApuesta}
+		</p:tipoApuestaHeader>
+		
+		<p:opcionElegidaHeader>
+			${message:opcionElegida}
+		</p:opcionElegidaHeader>
+		
+		<p:estadoHeader>
+			${message:estado}
+		</p:estadoHeader>
+		
+		<p:cantidadApostadaHeader>
+			${message:apostada}
+		</p:cantidadApostadaHeader>
+		
+		<p:opcionesGanadorasHeader>
+			${message:ganadoras}
+		</p:opcionesGanadorasHeader>
+		
+		
+		<p:fechaCell>
+			${fechaDeApuesta}
+		</p:fechaCell> 
+		
+		<p:nombreEventoCell>
+			${apuesta.opcionElegida.tipoApuesta.evento.nombreEvento}
+		</p:nombreEventoCell>
+		
+		<p:fechaEventoCell>
+			${fechaDeEvento}
+		</p:fechaEventoCell>
+		
+		<p:tipoApuestaCell>
+			${apuesta.opcionElegida.tipoApuesta.pregunta}
+		</p:tipoApuestaCell>
+		
+		<p:opcionElegidaCell>
+			${apuesta.opcionElegida.nombreOpcion}
+		</p:opcionElegidaCell>
+		
+		<p:estadoCell>
+			${estadoApuesta}
+		</p:estadoCell>
+		
+		<p:cantidadApostadaCell>
+			${apuesta.apostado}
+		</p:cantidadApostadaCell>
+		
+		<p:opcionesGanadorasCell>
+			${opcionesGanadoras}
+		</p:opcionesGanadorasCell>
+		
+		
+		<p:gananciaHeader>
+				${message:ganancia}
+		</p:gananciaHeader>
+		
+		<p:gananciaCell>
+			${ganancia}
+		</p:gananciaCell>
+		
+		
+		
+	</t:grid>
+</html>

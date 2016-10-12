@@ -12,5 +12,5 @@ Daniel Ferreiro Presedo
 
 Descripción
 
-Practica PA de unha casa de apostas na que xestionan a creación de novos eventos deportivos, as diferentes apostas sobre as que un usuario pode apostar, os usuarios da aplicación web e as apostas que realizan os usuarios.
+Practica de Programación Avanzada dunha casa de apostas na que se xestionan a creación de novos eventos deportivos, as diferentes apostas sobre as que un usuario pode apostar, os usuarios da aplicación web e as apostas que realizan os usuarios.
 

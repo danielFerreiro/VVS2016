@@ -1,4 +1,12 @@
 language: java
 jdk: oraclejdk8
 services:
- mysql
+    - mysql
+    
+before_install:
+    - mysqladmin -u root create pojo
+    - mysqladmin -u root create pojotest
+    - mysql -u root -e "GRANT ALL PRIVILEGES ON pojo.* to pojo@localhost IDENTIFIED BY 'pojo'"
+    - mysql -u root -e "GRANT ALL PRIVILEGES ON pojotest.* to pojo@localhost IDENTIFIED BY 'pojo'"
+    
+

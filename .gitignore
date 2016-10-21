@@ -1,8 +1,11 @@
 
+
+# Ignore classpath, project, settings and the metadata
 .classpath
 .project
 .settings/*
+.metadata/*
 
 
-
+# Ignore the target
 /target/

@@ -38,10 +38,12 @@ import es.udc.pa.pa009.pwin.model.apuesta.TipoApuesta;
 import es.udc.pa.pa009.pwin.model.apuesta.TipoApuestaDao;
 import es.udc.pa.pa009.pwin.model.betservice.BetService;
 import es.udc.pa.pa009.pwin.model.betservice.BetServiceImpl;
+import es.udc.pa.pa009.pwin.model.betservice.NegativeAmountException;
 import es.udc.pa.pa009.pwin.model.evento.Categoria;
 import es.udc.pa.pa009.pwin.model.evento.CategoriaDao;
 import es.udc.pa.pa009.pwin.model.evento.Evento;
 import es.udc.pa.pa009.pwin.model.evento.EventoDao;
+import es.udc.pa.pa009.pwin.model.evento.ExpiredEventException;
 import es.udc.pa.pa009.pwin.model.userprofile.UserProfile;
 import es.udc.pa.pa009.pwin.model.userprofile.UserProfileDao;
 import es.udc.pojo.modelutil.exceptions.DuplicateInstanceException;
@@ -785,6 +787,26 @@ public class VVSTest {
 
 	@Test
 	public void testPR_UN_BS_03() {
+
+	}
+
+	@Test
+	public void testPR_UN_BS_04() throws ExpiredEventException, InstanceNotFoundException, NegativeAmountException {
+
+		// initialize
+		thrown.expect(NegativeAmountException.class);
+
+		UserProfile user = new UserProfile("nanie", "nanie", "nanie", "nanie", "nanie");
+		Evento event = new Evento("evento", Calendar.getInstance(), null);
+		event.getFecha().add(Calendar.YEAR, 2);
+
+		TipoApuesta betType = new TipoApuesta(event, "sdkvjs", true);
+		Opcion option = new Opcion("opcion", 20.0, null, betType);
+
+		when(opcionDaoMockito.find(option.getIdOpcion())).thenReturn(option);
+
+		// test
+		betServiceMockito.bet(option.getIdOpcion(), -43.0, user.getUserProfileId());
 
 	}
 

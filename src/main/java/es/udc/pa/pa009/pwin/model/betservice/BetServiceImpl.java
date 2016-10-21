@@ -56,13 +56,13 @@ public class BetServiceImpl implements BetService {
 		Opcion o = opcionDao.find(idOpcion);
 
 		TipoApuesta tipo = o.getTipoApuesta();
-		
+
 		Evento evento = tipo.getEvento();
-		
+
 		if (evento.getFecha().before(Calendar.getInstance() ) ) {
 			throw new ExpiredEventException(evento, "evento");
 		}
-		
+
 		return o;
 	}
 
@@ -86,7 +86,7 @@ public class BetServiceImpl implements BetService {
 	@Override
 	@Transactional
 	public Apuesta bet(Long idOpcion, Double cantidadApostada, Long userId)
-			throws ExpiredEventException, InstanceNotFoundException {
+			throws ExpiredEventException, InstanceNotFoundException, NegativeAmountException {
 
 		Opcion opcionElegida = opcionDao.find(idOpcion);
 
@@ -102,12 +102,16 @@ public class BetServiceImpl implements BetService {
 			throw new ExpiredEventException(eventoAsociado, "Evento");
 		}
 
+		if (cantidadApostada.isNaN() || cantidadApostada <= 0) {
+			throw new NegativeAmountException(cantidadApostada, "Double");
+		}
+
 		UserProfile usuario = userProfileDao.find(userId);
 
 		Apuesta apuestaRealizada = new Apuesta(fechaActual, usuario,
 				cantidadApostada, opcionElegida);
 		apuestaDao.save(apuestaRealizada);
-		
+
 		return apuestaRealizada;
 
 	}
@@ -115,10 +119,10 @@ public class BetServiceImpl implements BetService {
 	@Override
 	@Transactional(readOnly = true)
 	public ApuestaBlock checkBet(Long userId, int startIndex, int count) {
-		
+
 		List<Apuesta> apuestas = apuestaDao.findApuestasByIdUsuario(userId,
 				startIndex, count + 1);
-		
+
 		Boolean existMore = apuestas.size() == (count + 1);
 
 		if (existMore) {
@@ -141,7 +145,7 @@ public class BetServiceImpl implements BetService {
 	public int getNumberOfEvents(String keywords, Long categoryId) {
 		return eventoDao.getNumberOfEvents(categoryId, keywords);
 	}
-	
+
 	@Override
 	public int getNumberOfBets(Long userID){
 		return apuestaDao.findNumberOfBets(userID);
@@ -151,7 +155,7 @@ public class BetServiceImpl implements BetService {
 	public List<Opcion> showWinners(Long idTipoApuesta) {
 		return opcionDao.showWinners(idTipoApuesta);
 	}
-	
+
 	@Override
 	@Transactional(readOnly=true)
 	public List<Evento> findAllEvents(Long idCategoria, String keywords){

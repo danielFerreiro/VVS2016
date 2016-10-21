@@ -757,37 +757,139 @@ public class VVSTest {
 
 	@Test
 	public void testPR_UN_AS_03() {
-
+		//Inicialize
+		Categoria categoria = new Categoria("categoriaMockito");
+		List<Evento> mockedList = new ArrayList<Evento>();
+		for (int i=0; i<11; i++){
+			mockedList.add(new Evento("eventoMockito", Calendar.getInstance(), categoria));
+		}
+		when(eventoDaoMockito.findEventNoDate(categoria.getIdCategoria(), "", 0, 11)).thenReturn(mockedList);
+		//Test
+		EventoBlock evento = adminServiceMockito.findEvent(categoria.getIdCategoria(), "", 0, 10);
+		
+		assertTrue(evento.isExistMoreEvents());
 	}
 
 	@Test
-	public void testPR_UN_AS_04() {
+	public void testPR_UN_AS_04() throws InstanceNotFoundException, ExpiredEventException, IllegalParameterException, NotMultipleOptionsException, AlreadySetOptionException {
+		//Inicialize
+		Long id = (long) 1;
+		Categoria categoria = new Categoria("categoriaMockito");
+		Evento evento = new Evento("eventoMockito", Calendar.getInstance(), categoria);
+		TipoApuesta tipoApuesta = new TipoApuesta(evento, "pregunta", true);
+		List<Opcion> opciones = new ArrayList<Opcion>();
+		for(int i=0; i<5; i++){
+			opciones.add(new Opcion("option1", 0.5,null, tipoApuesta));
+		}
+		List<Long> ganadoras = new ArrayList<Long>();
+		ganadoras.add(opciones.get(0).getIdOpcion());
+		ganadoras.add(opciones.get(1).getIdOpcion());
+		when(tipoApuestaDaoMockito.find(tipoApuesta.getIdTipo())).thenReturn(tipoApuesta);
+		when(opcionDaoMockito.find(opciones.get(0).getIdOpcion())).thenReturn(opciones.get(0));
+		when(opcionDaoMockito.find(opciones.get(1).getIdOpcion())).thenReturn(opciones.get(1));
 
+		//Test
+		adminServiceMockito.markAsWinner(ganadoras, tipoApuesta.getIdTipo());
+		assertTrue(opciones.get(0).getEstado());
+		assertTrue(opciones.get(1).getEstado());
 	}
 
 	@Test
-	public void testPR_UN_AS_05() {
+	public void testPR_UN_AS_05() throws InstanceNotFoundException, ExpiredEventException, IllegalParameterException, NotMultipleOptionsException, AlreadySetOptionException {
+		//Inicialize
+		thrown.expect(AlreadySetOptionException.class);
+		Categoria categoria = new Categoria("categoriaMockito");
+		Evento evento = new Evento("eventoMockito", Calendar.getInstance(), categoria);
+		TipoApuesta tipoApuesta = new TipoApuesta(evento, "pregunta", true);
+		List<Opcion> opciones = new ArrayList<Opcion>();
+		for(int i=0; i<5; i++){
+			opciones.add(new Opcion("option1", 0.5,null, tipoApuesta));
+		}
+		List<Long> ganadoras = new ArrayList<Long>();
+		opciones.get(0).setEstado(true);
+		ganadoras.add(opciones.get(0).getIdOpcion());
+		ganadoras.add(opciones.get(1).getIdOpcion());
+		when(tipoApuestaDaoMockito.find(tipoApuesta.getIdTipo())).thenReturn(tipoApuesta);
+		when(opcionDaoMockito.find(opciones.get(0).getIdOpcion())).thenReturn(opciones.get(0));
+		when(opcionDaoMockito.find(opciones.get(1).getIdOpcion())).thenReturn(opciones.get(1));
 
+		//Test
+		adminServiceMockito.markAsWinner(ganadoras, tipoApuesta.getIdTipo());
 	}
 
 	@Test
-	public void testPR_UN_AS_06() {
-
+	public void testPR_UN_AS_06() throws InstanceNotFoundException, InvalidEventDateException, DuplicateInstanceException {
+		//Inicialize
+		Categoria categoria = new Categoria("categoriaMockito");
+		Calendar fecha = Calendar.getInstance(); fecha.add(Calendar.YEAR, 4);
+		Evento evento = new Evento("eventoMockito", fecha, categoria);
+		TipoApuesta tipoApuesta = new TipoApuesta(evento, "pregunta", true);
+		List<Opcion> opciones = new ArrayList<Opcion>();
+		for(int i=0; i<5; i++){
+			opciones.add(new Opcion("option1", 0.5,null, tipoApuesta));
+		}
+		when(eventoDaoMockito.find(evento.getIdEvento())).thenReturn(evento);
+		when(tipoApuestaDaoMockito.findDuplicateBetTypes(tipoApuesta.getPregunta(),evento.getIdEvento())).thenReturn(false);
+		//Test
+		adminServiceMockito.addBettingType(tipoApuesta, evento.getIdEvento(), opciones);
+		assertEquals(tipoApuesta.getEvento(),evento);
+		for (int j=0; j<tipoApuesta.getOpciones().size();j++)
+			assertTrue(opciones.contains(tipoApuesta.getOpciones().get(j)));
 	}
 
 	@Test
 	public void testPR_UN_BS_01() {
-
+		//Inicialize
+		Categoria categoria = new Categoria("categoriaMockito");
+		List<Evento> mockedList = new ArrayList<Evento>();
+		Calendar fecha = Calendar.getInstance(); fecha.add(Calendar.YEAR,4);
+		for (int i=0; i<11; i++){
+			mockedList.add(new Evento("eventoMockito", fecha, categoria));
+		}
+		when(eventoDaoMockito.findEvent(categoria.getIdCategoria(), "", 0, 11)).thenReturn(mockedList);
+		//Test
+		EventoBlock evento = betServiceMockito.findEvent(categoria.getIdCategoria(), "", 0, 10);
+			
+		assertTrue(evento.isExistMoreEvents());
+		
 	}
 
 	@Test
-	public void testPR_UN_BS_02() {
-
+	public void testPR_UN_BS_02() throws InstanceNotFoundException, ExpiredEventException {
+		//Inicialize
+		UserProfile user = new UserProfile("nanie", "nanie", "nanie", "nanie", "nanie@nanie.com");
+		Categoria categoria = new Categoria("categoriaMockito");
+		Calendar fecha = Calendar.getInstance(); fecha.add(Calendar.YEAR, 4);
+		Evento evento = new Evento("eventoMockito", fecha, categoria);
+		TipoApuesta tipoApuesta = new TipoApuesta(evento, "pregunta", true);
+		Opcion opcion = new Opcion("option1", 0.5,null, tipoApuesta);
+		when(opcionDaoMockito.find(opcion.getIdOpcion())).thenReturn(opcion);
+		when(userProfileDaoMockito.find(user.getUserProfileId())).thenReturn(user);
+		
+		//Test
+		Apuesta apuesta = betServiceMockito.bet(opcion.getIdOpcion(), 32.3,user.getUserProfileId());
+		assertEquals(apuesta.getUsuario(),user);
+		assertEquals(apuesta.getOpcionElegida(),opcion);
 	}
 
 	@Test
 	public void testPR_UN_BS_03() {
-
+		//Inicialize
+		UserProfile user = new UserProfile("nanie", "nanie", "nanie", "nanie", "nanie@nanie.com");
+		Categoria categoria = new Categoria("categoriaMockito");
+		Calendar fecha = Calendar.getInstance(); fecha.add(Calendar.YEAR, 4);
+		Evento evento = new Evento("eventoMockito", fecha, categoria);
+		TipoApuesta tipoApuesta = new TipoApuesta(evento, "pregunta", true);
+		Opcion opcion = new Opcion("option1", 0.5,null, tipoApuesta);
+		List<Apuesta> apuestas = new ArrayList<Apuesta>();
+		for (int i=0; i<11; i++){
+			apuestas.add(new Apuesta(Calendar.getInstance(), user, 32.3, opcion));
+		}
+		
+		when(apuestaDaoMockito.findApuestasByIdUsuario(user.getUserProfileId(), 0, 11)).thenReturn(apuestas);
+		//Test
+		ApuestaBlock apuesta = betServiceMockito.checkBet(user.getUserProfileId(), 0, 10);
+		assertTrue(apuesta.isExistMoreBets());
 	}
 
 	@Test

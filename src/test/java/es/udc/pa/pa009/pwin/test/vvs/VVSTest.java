@@ -9,6 +9,7 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
@@ -29,15 +30,20 @@ import org.springframework.transaction.annotation.Transactional;
 
 import es.udc.pa.pa009.pwin.model.adminservice.AdminService;
 import es.udc.pa.pa009.pwin.model.adminservice.AdminServiceImpl;
+import es.udc.pa.pa009.pwin.model.adminservice.AlreadySetOptionException;
+import es.udc.pa.pa009.pwin.model.adminservice.IllegalParameterException;
 import es.udc.pa.pa009.pwin.model.adminservice.InvalidEventDateException;
+import es.udc.pa.pa009.pwin.model.adminservice.NotMultipleOptionsException;
 import es.udc.pa.pa009.pwin.model.apuesta.Apuesta;
 import es.udc.pa.pa009.pwin.model.apuesta.ApuestaDao;
 import es.udc.pa.pa009.pwin.model.apuesta.Opcion;
 import es.udc.pa.pa009.pwin.model.apuesta.OpcionDao;
 import es.udc.pa.pa009.pwin.model.apuesta.TipoApuesta;
 import es.udc.pa.pa009.pwin.model.apuesta.TipoApuestaDao;
+import es.udc.pa.pa009.pwin.model.betservice.ApuestaBlock;
 import es.udc.pa.pa009.pwin.model.betservice.BetService;
 import es.udc.pa.pa009.pwin.model.betservice.BetServiceImpl;
+import es.udc.pa.pa009.pwin.model.betservice.EventoBlock;
 import es.udc.pa.pa009.pwin.model.betservice.NegativeAmountException;
 import es.udc.pa.pa009.pwin.model.evento.Categoria;
 import es.udc.pa.pa009.pwin.model.evento.CategoriaDao;
@@ -766,7 +772,7 @@ public class VVSTest {
 		when(eventoDaoMockito.findEventNoDate(categoria.getIdCategoria(), "", 0, 11)).thenReturn(mockedList);
 		//Test
 		EventoBlock evento = adminServiceMockito.findEvent(categoria.getIdCategoria(), "", 0, 10);
-		
+
 		assertTrue(evento.isExistMoreEvents());
 	}
 
@@ -833,8 +839,9 @@ public class VVSTest {
 		//Test
 		adminServiceMockito.addBettingType(tipoApuesta, evento.getIdEvento(), opciones);
 		assertEquals(tipoApuesta.getEvento(),evento);
-		for (int j=0; j<tipoApuesta.getOpciones().size();j++)
+		for (int j=0; j<tipoApuesta.getOpciones().size();j++) {
 			assertTrue(opciones.contains(tipoApuesta.getOpciones().get(j)));
+		}
 	}
 
 	@Test
@@ -849,13 +856,13 @@ public class VVSTest {
 		when(eventoDaoMockito.findEvent(categoria.getIdCategoria(), "", 0, 11)).thenReturn(mockedList);
 		//Test
 		EventoBlock evento = betServiceMockito.findEvent(categoria.getIdCategoria(), "", 0, 10);
-			
+
 		assertTrue(evento.isExistMoreEvents());
-		
+
 	}
 
 	@Test
-	public void testPR_UN_BS_02() throws InstanceNotFoundException, ExpiredEventException {
+	public void testPR_UN_BS_02() throws InstanceNotFoundException, ExpiredEventException, NegativeAmountException {
 		//Inicialize
 		UserProfile user = new UserProfile("nanie", "nanie", "nanie", "nanie", "nanie@nanie.com");
 		Categoria categoria = new Categoria("categoriaMockito");
@@ -865,7 +872,7 @@ public class VVSTest {
 		Opcion opcion = new Opcion("option1", 0.5,null, tipoApuesta);
 		when(opcionDaoMockito.find(opcion.getIdOpcion())).thenReturn(opcion);
 		when(userProfileDaoMockito.find(user.getUserProfileId())).thenReturn(user);
-		
+
 		//Test
 		Apuesta apuesta = betServiceMockito.bet(opcion.getIdOpcion(), 32.3,user.getUserProfileId());
 		assertEquals(apuesta.getUsuario(),user);
@@ -885,7 +892,7 @@ public class VVSTest {
 		for (int i=0; i<11; i++){
 			apuestas.add(new Apuesta(Calendar.getInstance(), user, 32.3, opcion));
 		}
-		
+
 		when(apuestaDaoMockito.findApuestasByIdUsuario(user.getUserProfileId(), 0, 11)).thenReturn(apuestas);
 		//Test
 		ApuestaBlock apuesta = betServiceMockito.checkBet(user.getUserProfileId(), 0, 10);

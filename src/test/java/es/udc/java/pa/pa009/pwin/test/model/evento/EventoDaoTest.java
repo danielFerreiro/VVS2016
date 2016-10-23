@@ -40,8 +40,8 @@ public class EventoDaoTest {
 	 * 
 	 * @return categoria con el identificador
 	 */
-	private Categoria insertCategory() {
-		Categoria categoria = new Categoria("categoria de prueba");
+	private Categoria insertCategory(String categoryName) {
+		Categoria categoria = new Categoria(categoryName);
 		categoria.setIdCategoria((Long) sessionFactory.getCurrentSession().save(categoria));
 
 		return categoria;
@@ -68,7 +68,7 @@ public class EventoDaoTest {
 	@Test
 	public void testPR_UN_ED_01() {
 		// initialize
-		Categoria category = insertCategory();
+		Categoria category = insertCategory("categoria prueba 1");
 		Evento event = insertEvent(category);
 		Evento event2 = insertEvent(category);
 		Evento event3 = insertEvent(category);
@@ -96,7 +96,7 @@ public class EventoDaoTest {
 	@Test
 	public void testPR_UN_ED_02() {
 		// initialize
-		Categoria category = insertCategory();
+		Categoria category = insertCategory("categoria prueba 1");
 		Evento event = insertEvent(category);
 		Evento event2 = insertEvent(category);
 		Evento event3 = insertEvent(category);
@@ -124,7 +124,7 @@ public class EventoDaoTest {
 	@Test
 	public void testPR_UN_ED_03() {
 		// initialize
-		Categoria category = insertCategory();
+		Categoria category = insertCategory("categoria prueba 1");
 		Evento event = insertEvent(category);
 		Evento event2 = insertEvent(category);
 		Evento event3 = insertEvent(category);
@@ -151,8 +151,8 @@ public class EventoDaoTest {
 	public void testPR_UN_ED_04() {
 
 		// intialize
-		Categoria category = insertCategory();
-		Categoria category2 = insertCategory();
+		Categoria category = insertCategory("categoria prueba 1");
+		Categoria category2 = insertCategory("categoria prueba 2");
 
 		Evento event = insertEvent(category);
 		Evento event2 = insertEvent(category);
@@ -188,7 +188,7 @@ public class EventoDaoTest {
 	public void testPR_UN_ED_05() {
 
 		// initialize
-		Categoria category = insertCategory();
+		Categoria category = insertCategory("categoria prueba 1");
 		Evento event = insertEvent(category);
 
 		// test

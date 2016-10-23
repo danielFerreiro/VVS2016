@@ -40,8 +40,8 @@ public class TipoApuestaDaoTest {
 	 * 
 	 * @return categoria con el identificador
 	 */
-	private Categoria insertCategory() {
-		Categoria categoria = new Categoria("categoria de prueba");
+	private Categoria insertCategory(String categoryName) {
+		Categoria categoria = new Categoria(categoryName);
 		categoria.setIdCategoria((Long) sessionFactory.getCurrentSession().save(categoria));
 
 		return categoria;
@@ -86,7 +86,7 @@ public class TipoApuestaDaoTest {
 	@Test
 	public void testPR_UN_TAD_01() {
 
-		Categoria category = insertCategory();
+		Categoria category = insertCategory("categoria prueba 1");
 		Evento event = insertEvent(category);
 		TipoApuesta betType = insertBetTypeWithoutMultipleWinnerOptions(event);
 

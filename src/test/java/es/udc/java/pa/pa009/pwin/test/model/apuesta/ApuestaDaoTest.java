@@ -61,8 +61,8 @@ public class ApuestaDaoTest {
 	 * 
 	 * @return categoria con el identificador
 	 */
-	private Categoria insertCategory() {
-		Categoria categoria = new Categoria("categoria de prueba");
+	private Categoria insertCategory(String categoryName) {
+		Categoria categoria = new Categoria(categoryName);
 		categoria.setIdCategoria((Long) sessionFactory.getCurrentSession().save(categoria));
 
 		return categoria;
@@ -146,7 +146,7 @@ public class ApuestaDaoTest {
 	public void testPR_UN_AD_01() {
 		// initialize
 		UserProfile user = insertUser("usuario1");
-		Categoria category = insertCategory();
+		Categoria category = insertCategory("categoria prueba 1");
 		Evento event = insertEvent(category);
 		TipoApuesta betType = insertBetTypeWithoutMultipleWinnerOptions(event);
 		Opcion option = insertOptionWithoutState(betType);
@@ -160,7 +160,7 @@ public class ApuestaDaoTest {
 	public void testPR_UN_AD_02() {
 		// initialize
 		UserProfile user = insertUser("usuario1");
-		Categoria category = insertCategory();
+		Categoria category = insertCategory("categoria prueba 1");
 		Evento event = insertEvent(category);
 		TipoApuesta betType = insertBetTypeWithoutMultipleWinnerOptions(event);
 		Opcion option = insertOptionWithoutState(betType);
@@ -175,7 +175,7 @@ public class ApuestaDaoTest {
 	public void testPR_UN_AD_03() throws InstanceNotFoundException {
 		// initialize
 		UserProfile user = insertUser("usuario1");
-		Categoria category = insertCategory();
+		Categoria category = insertCategory("categoria prueba 1");
 		Evento event = insertEvent(category);
 		TipoApuesta betType = insertBetTypeWithoutMultipleWinnerOptions(event);
 		Opcion option = insertOptionWithoutState(betType);
@@ -211,7 +211,7 @@ public class ApuestaDaoTest {
 
 		// initialize
 		UserProfile user = insertUser("usuario1");
-		Categoria category = insertCategory();
+		Categoria category = insertCategory("categoria prueba 1");
 		Evento event = insertEvent(category);
 		TipoApuesta betType = insertBetTypeWithoutMultipleWinnerOptions(event);
 		Opcion option = insertOptionWithoutState(betType);
@@ -233,7 +233,7 @@ public class ApuestaDaoTest {
 		UserProfile user = insertUser("usuario1");
 		UserProfile user2 = insertUser("usuario2");
 
-		Categoria category = insertCategory();
+		Categoria category = insertCategory("categoria prueba 1");
 		Evento event = insertEvent(category);
 		Evento event2 = insertEvent(category);
 
@@ -281,7 +281,7 @@ public class ApuestaDaoTest {
 		UserProfile user = insertUser("usuario1");
 		UserProfile user2 = insertUser("usuario2");
 
-		Categoria category = insertCategory();
+		Categoria category = insertCategory("categoria prueba 1");
 		Evento event = insertEvent(category);
 		Evento event2 = insertEvent(category);
 
@@ -326,7 +326,7 @@ public class ApuestaDaoTest {
 		UserProfile user = insertUser("usuario1");
 		UserProfile user2 = insertUser("usuario2");
 
-		Categoria category = insertCategory();
+		Categoria category = insertCategory("categoria prueba 1");
 		Evento event = insertEvent(category);
 		Evento event2 = insertEvent(category);
 

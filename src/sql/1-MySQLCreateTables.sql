@@ -29,7 +29,7 @@ CREATE INDEX UserProfileIndexByLoginName ON UserProfile (loginName);
 
 create table Categoria(
 	idCategoria BIGINT NOT NULL AUTO_INCREMENT,
-	nombreCategoria VARCHAR(20),
+	nombreCategoria VARCHAR(20) UNIQUE,
 	CONSTRAINT idCategoria_pk PRIMARY KEY(idCategoria)
 )ENGINE = InnoDB; 
 

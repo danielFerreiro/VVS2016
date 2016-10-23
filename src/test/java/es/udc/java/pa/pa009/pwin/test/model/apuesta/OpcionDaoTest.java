@@ -59,8 +59,8 @@ public class OpcionDaoTest {
 	 * 
 	 * @return categoria con el identificador
 	 */
-	private Categoria insertCategory() {
-		Categoria categoria = new Categoria("categoria de prueba");
+	private Categoria insertCategory(String categoryName) {
+		Categoria categoria = new Categoria(categoryName);
 		categoria.setIdCategoria((Long) sessionFactory.getCurrentSession().save(categoria));
 
 		return categoria;
@@ -158,7 +158,7 @@ public class OpcionDaoTest {
 		UserProfile user = insertUser("usuario1");
 		UserProfile user2 = insertUser("usuario2");
 
-		Categoria category = insertCategory();
+		Categoria category = insertCategory("categoria prueba 1");
 		Evento event = insertEvent(category);
 		Evento event2 = insertEvent(category);
 
@@ -184,7 +184,7 @@ public class OpcionDaoTest {
 		UserProfile user = insertUser("usuario1");
 		UserProfile user2 = insertUser("usuario2");
 
-		Categoria category = insertCategory();
+		Categoria category = insertCategory("categoria prueba 1");
 		Evento event = insertEvent(category);
 		Evento event2 = insertEvent(category);
 

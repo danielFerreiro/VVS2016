@@ -1,6 +1,5 @@
 package es.udc.pa.pa009.pwin.model.adminservice;
 
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
@@ -102,7 +101,7 @@ public class AdminServiceImpl implements AdminService {
 
 			// comprobamos que todas las opciones pertenezcan al tipo de apuesta
 			Opcion oEncontrada = opcionDao.find(id);
-			if (oEncontrada.getTipoApuesta().getIdTipo() != idTipoApuesta) {
+			if (oEncontrada.getTipoApuesta().getIdTipo().compareTo(idTipoApuesta) != 0) {
 				throw new IllegalParameterException(oEncontrada, "opcion");
 			}
 		}
@@ -136,7 +135,7 @@ public class AdminServiceImpl implements AdminService {
 	@Transactional
 	public TipoApuesta addBettingType(TipoApuesta tipoApuesta, Long idEvento,
 			List<Opcion> opciones) throws InstanceNotFoundException,
-			InvalidEventDateException, DuplicateInstanceException {
+	InvalidEventDateException, DuplicateInstanceException {
 
 		Evento evento = eventoDao.find(idEvento);
 
@@ -155,15 +154,15 @@ public class AdminServiceImpl implements AdminService {
 		}
 
 		tipoApuesta.setEvento(evento);
-		
+
 		tipoApuesta.setOpciones(opciones);
 
 		tipoApuestaDao.save(tipoApuesta);
-		
+
 		for (Opcion o:opciones){
 			opcionDao.save(o);
 		}
-		
+
 		return tipoApuesta;
 
 	}
@@ -176,6 +175,7 @@ public class AdminServiceImpl implements AdminService {
 
 	}
 
+	@Override
 	public int getNumberOfEvents(String keywords, Long categoryId) {
 		return eventoDao.getNumberOfEvents2(categoryId, keywords);
 	}
@@ -184,7 +184,7 @@ public class AdminServiceImpl implements AdminService {
 	@Transactional
 	public Opcion addOption(Long idTipoApuesta, String nombreOpcion,
 			Double cuota, Boolean estado) throws InstanceNotFoundException,
-			InvalidEventDateException {
+	InvalidEventDateException {
 		TipoApuesta tipoApuesta = tipoApuestaDao.find(idTipoApuesta);
 		if (tipoApuesta.getEvento().getFecha().before(Calendar.getInstance())) {
 			throw new InvalidEventDateException(tipoApuesta.getEvento(),
@@ -217,14 +217,14 @@ public class AdminServiceImpl implements AdminService {
 
 		return o;
 	}
-	
-	
+
+
 	@Override
 	@Transactional(readOnly = true)
 	public List<Evento> findAllEvents(Long idCategoria, String keywords) {
 		return eventoDao.findAllEventsNoDate(idCategoria, keywords);
 	}
 
-	
-	
+
+
 }

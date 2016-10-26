@@ -458,6 +458,20 @@
 					</dependency>
 				</dependencies>
 			</plugin>
+			
+			<plugin>
+				<artifactId>org.pitest</artifactId>
+				<groupId>pitest-maven</groupId>
+				<version>0.32</version>
+				<configuration>
+					<targetClasses>
+						<param>es.udc.pa.pa009.pwin.model.*</param>
+					</targetClasses>
+					<targetTests>
+						<param>es.udc.pa.pa009.pwin.test.model.*</param>
+					</targetTests>
+				</configuration>
+			</plugin>
 
 		</plugins>
 

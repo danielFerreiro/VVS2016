@@ -10,12 +10,14 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -60,6 +62,11 @@ public class AdminServiceTest {
 	@Rule
 	public ExpectedException thrown = ExpectedException.none();
 
+
+	@Before
+	public void setup() {
+		MockitoAnnotations.initMocks(this);
+	}
 
 	@Test
 	public void testPR_UN_AS_01()
@@ -127,9 +134,12 @@ public class AdminServiceTest {
 		Categoria categoria = new Categoria("categoriaMockito");
 		Evento evento = new Evento("eventoMockito", Calendar.getInstance(), categoria);
 		TipoApuesta tipoApuesta = new TipoApuesta(evento, "pregunta", true);
+		tipoApuesta.setIdTipo(new Long(0));
 		List<Opcion> opciones = new ArrayList<Opcion>();
 		for (int i = 0; i < 5; i++) {
-			opciones.add(new Opcion("option1", 0.5, null, tipoApuesta));
+			Opcion op = new Opcion("option" + i, 0.5, null, tipoApuesta);
+			op.setIdOpcion(new Long(i));
+			opciones.add(op);
 		}
 		List<Long> ganadoras = new ArrayList<Long>();
 		ganadoras.add(opciones.get(0).getIdOpcion());
@@ -151,18 +161,25 @@ public class AdminServiceTest {
 		thrown.expect(AlreadySetOptionException.class);
 		Categoria categoria = new Categoria("categoriaMockito");
 		Evento evento = new Evento("eventoMockito", Calendar.getInstance(), categoria);
+
 		TipoApuesta tipoApuesta = new TipoApuesta(evento, "pregunta", true);
+		tipoApuesta.setIdTipo(new Long(0));
 		List<Opcion> opciones = new ArrayList<Opcion>();
 		for (int i = 0; i < 5; i++) {
-			opciones.add(new Opcion("option1", 0.5, null, tipoApuesta));
+			Opcion op = new Opcion("option" + i, 0.5, null, tipoApuesta);
+			op.setIdOpcion(new Long(i));
+			opciones.add(op);
+
 		}
 		List<Long> ganadoras = new ArrayList<Long>();
 		opciones.get(0).setEstado(true);
 		ganadoras.add(opciones.get(0).getIdOpcion());
 		ganadoras.add(opciones.get(1).getIdOpcion());
+
 		when(tipoApuestaDaoMockito.find(tipoApuesta.getIdTipo())).thenReturn(tipoApuesta);
 		when(opcionDaoMockito.find(opciones.get(0).getIdOpcion())).thenReturn(opciones.get(0));
 		when(opcionDaoMockito.find(opciones.get(1).getIdOpcion())).thenReturn(opciones.get(1));
+		when(opcionDaoMockito.find(opciones.get(2).getIdOpcion())).thenReturn(opciones.get(2));
 
 		// Test
 		adminServiceMockito.markAsWinner(ganadoras, tipoApuesta.getIdTipo());

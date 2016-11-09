@@ -104,7 +104,7 @@ public class BetServiceRandomTest {
 		Opcion opcion = new Opcion("test opcion", 10.0, null, t);
 		opcionDao.save(opcion);
 
-		Generator<Double> generador = PrimitiveGenerators.doubles(Double.MIN_VALUE, 0);
+		Generator<Double> generador = PrimitiveGenerators.doubles(-Double.MAX_VALUE, 0);
 
 		betService.bet(opcion.getIdOpcion(), generador.next(), user.getUserProfileId());
 

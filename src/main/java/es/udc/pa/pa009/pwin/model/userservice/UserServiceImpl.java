@@ -17,7 +17,8 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserProfileDao userProfileDao;
 
-    public UserProfile registerUser(String loginName, String clearPassword,
+    @Override
+	public UserProfile registerUser(String loginName, String clearPassword,
             UserProfileDetails userProfileDetails)
             throws DuplicateInstanceException {
 
@@ -39,7 +40,8 @@ public class UserServiceImpl implements UserService {
 
     }
 
-    @Transactional(readOnly = true)
+    @Override
+	@Transactional(readOnly = true)
     public UserProfile login(String loginName, String password,
             boolean passwordIsEncrypted) throws InstanceNotFoundException,
             IncorrectPasswordException {
@@ -61,14 +63,16 @@ public class UserServiceImpl implements UserService {
 
     }
 
-    @Transactional(readOnly = true)
+    @Override
+	@Transactional(readOnly = true)
     public UserProfile findUserProfile(Long userProfileId)
             throws InstanceNotFoundException {
 
         return userProfileDao.find(userProfileId);
     }
 
-    public void updateUserProfileDetails(Long userProfileId,
+    @Override
+	public void updateUserProfileDetails(Long userProfileId,
             UserProfileDetails userProfileDetails)
             throws InstanceNotFoundException {
 
@@ -79,7 +83,8 @@ public class UserServiceImpl implements UserService {
 
     }
 
-    public void changePassword(Long userProfileId, String oldClearPassword,
+    @Override
+	public void changePassword(Long userProfileId, String oldClearPassword,
             String newClearPassword) throws IncorrectPasswordException,
             InstanceNotFoundException {
 

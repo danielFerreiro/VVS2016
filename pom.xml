@@ -483,23 +483,23 @@
 				</dependencies>
 			</plugin>
 
-<!-- 			<plugin> -->
-<!-- 				<artifactId>org.pitest</artifactId> -->
-<!-- 				<groupId>pitest-maven</groupId> -->
-<!-- 				<version>1.0.0</version> -->
-<!-- 				<configuration> -->
-<!-- 					<excludeClasses> -->
-<!-- 						<param>es.udc.pa.pa009.pwin.model.userservice*</param> -->
-<!-- 					</excludeClasses> -->
-<!-- 					<targetClasses> -->
-<!-- 						<param>es.udc.pa.pa009.pwin.model*</param> -->
-<!-- 					</targetClasses> -->
-<!-- 					<targetTests> -->
-<!-- 						<param>es.udc.java.pa.pa009.pwin.test.model*</param> -->
-<!-- 					</targetTests> -->
-<!-- 				</configuration> -->
+			<plugin>
+				<artifactId>org.pitest</artifactId>
+				<groupId>pitest-maven</groupId>
+				<version>1.0.0</version>
+				<configuration>
+					<excludeClasses>
+						<param>es.udc.pa.pa009.pwin.model.userservice*</param>
+					</excludeClasses>
+					<targetClasses>
+						<param>es.udc.pa.pa009.pwin.model*</param>
+					</targetClasses>
+					<targetTests>
+						<param>es.udc.java.pa.pa009.pwin.test.model*</param>
+					</targetTests>
+				</configuration>
 				
-<!-- 			</plugin> -->
+			</plugin>
 
 			<plugin>
 				<groupId>org.jacoco</groupId>

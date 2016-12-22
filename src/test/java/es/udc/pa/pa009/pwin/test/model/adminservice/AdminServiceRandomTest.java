@@ -59,7 +59,6 @@ public class AdminServiceRandomTest {
 
 		Generator<Double> generador = PrimitiveGenerators.doubles(0, Double.MAX_VALUE);
 
-		Opcion o = new Opcion("test rd", generador.next(), null, t);
 		adminService.addOption(t.getIdTipo(), "test opcion", generador.next(), null);
 
 	}

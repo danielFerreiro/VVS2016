@@ -1,6 +1,11 @@
 package es.udc.pa.pa009.pwin.model.testautomation;
 
-public class GraphModelTestImpl implements GraphModelTest {
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
+//@GraphWalker(value = "random(edge_coverage(100) or time_duration(60))", start = "initialize")
+public class GraphModelTestImpl /* extends ExecutionContext */ implements GraphModelTest {
+	public final static Path MODEL_PATH = Paths.get("es/udc/pa/pa009/pwin/model/testautomation/GraphModelTest.graphml");
 
 	@Override
 	public void Started() {

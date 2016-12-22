@@ -1,4 +1,4 @@
-package es.udc.java.pa.pa009.pwin.test.model.apuesta;
+package es.udc.pa.pa009.pwin.test.model.apuesta;
 
 import static es.udc.pa.pa009.pwin.model.util.GlobalNames.SPRING_CONFIG_FILE;
 import static es.udc.pa.pa009.pwin.test.util.GlobalNames.SPRING_CONFIG_TEST_FILE;

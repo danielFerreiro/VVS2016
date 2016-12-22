@@ -486,13 +486,16 @@
 			<plugin>
 				<artifactId>org.pitest</artifactId>
 				<groupId>pitest-maven</groupId>
-				<version>1.1.11</version>
+				<version>1.0.0</version>
 				<configuration>
+					<excludeClasses>
+						<param>es.udc.pa.pa009.pwin.model.userservice*</param>
+					</excludeClasses>
 					<targetClasses>
 						<param>es.udc.pa.pa009.pwin.model*</param>
 					</targetClasses>
 					<targetTests>
-						<param>es.udc.pa.pa009.pwin.test.model*</param>
+						<param>es.udc.java.pa.pa009.pwin.test.model*</param>
 					</targetTests>
 				</configuration>
 				

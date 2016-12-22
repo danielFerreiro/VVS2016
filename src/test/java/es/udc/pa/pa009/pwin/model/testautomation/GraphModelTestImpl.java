@@ -1,4 +1,4 @@
-package es.udc.java.pa.pa009.pwin.model.testautomation;
+package es.udc.pa.pa009.pwin.model.testautomation;
 
 public class GraphModelTestImpl implements GraphModelTest {
 

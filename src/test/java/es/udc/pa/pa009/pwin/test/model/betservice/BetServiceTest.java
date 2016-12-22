@@ -1,4 +1,4 @@
-package es.udc.java.pa.pa009.pwin.test.model.betservice;
+package es.udc.pa.pa009.pwin.test.model.betservice;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
